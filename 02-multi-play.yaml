@@ -1,7 +1,14 @@
 #PLAY-01
--name: PLAY-01
-hosts: web #which hosts your ansible wants to connect
-tasks:
-- name: PLAY-01 TASK-01
-ansible.builtin.debug:
-msg: "This is from PLAY-01 TASK-01"
+- name: play-01
+  hosts: web
+  tasks:
+    - name: Print a message from the first play
+      debug:
+        msg: "This is the first play running on localhost."
+#PLAY-02
+- name: play-02
+  hosts: web
+  tasks:
+    - name: Print a message from the second play
+      debug:
+        msg: "This is the second play running on localhost."
