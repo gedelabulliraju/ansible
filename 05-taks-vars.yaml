@@ -9,9 +9,9 @@
         msg: "Hello, i am {{NAME}}, {{MESSAGE}}!"
 
     - name: Set new variable
+      vars:
+        NAME: "DOE"
       ansible.builtin.debug:
-        vars:
-        NAME: "MDP"
         msg: "Hello, i am {{NAME}}, {{MESSAGE}}!"
 
     - name: Show a message again
