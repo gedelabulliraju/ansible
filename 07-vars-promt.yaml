@@ -1,0 +1,15 @@
+- name:
+  vars_prompt:
+    - name: "NAME"
+      prompt: "Enter your name"
+      private: no
+    - name: "AGE"
+      prompt: "Enter your age"
+      private: no
+    - name: "CITY"
+      prompt: "Enter your city"
+      private: no
+  tasks:
+    - name: variable from file
+      ansible.builtin.debug:
+        msg: "my name is {{NAME}}, my age is {{AGE}}, my city is {{CITY}}"
