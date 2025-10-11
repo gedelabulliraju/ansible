@@ -1,0 +1,6 @@
+- name:
+  hosts: web
+  tasks:
+    - name: variable from file
+      ansible.builtin.debug:
+        msg: "my name is {{NAME}}, my age is {{AGE}}, my city is {{CITY}}"
