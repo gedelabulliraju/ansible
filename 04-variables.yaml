@@ -1,11 +1,6 @@
--name: variables to print
-hosts: web
-vars:
-    COURSE: "Ansible for DevOps"
-    DURATION: "3 days"
-    TRAINER: "Siva kumar"
-    
-tasks: 
-    - name: Print variables
+- name: variables
+  hosts: web
+  tasks:
+    - name: Show a message
       ansible.builtin.debug:
-        msg: "Course: {{ COURSE }}, Duration: {{ DURATION }}, Trainer: {{ TRAINER }}"
+        msg: "Hello, i am jhon, prctice shell!"
