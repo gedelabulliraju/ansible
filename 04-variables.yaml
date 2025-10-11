@@ -1,6 +1,9 @@
 - name: variables
   hosts: web
+  vars: 
+    NAME: "JHON"
+    MESSAGE: "prctice shell"
   tasks:
     - name: Show a message
       ansible.builtin.debug:
-        msg: "Hello, i am jhon, prctice shell!"
+        msg: "Hello, i am {{NAME}}, {{MESSAGE}}!"
