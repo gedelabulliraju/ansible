@@ -1,0 +1,19 @@
+- name: variables
+  hosts: web
+  vars: 
+    NAME: "JHON"
+    MESSAGE: "prctice shell"
+  tasks:
+    - name: Show a message
+      ansible.builtin.debug:
+        msg: "Hello, i am {{NAME}}, {{MESSAGE}}!"
+
+    - name: Set new variable
+      ansible.builtin.debug:
+        vars:
+        NAME: "MDP"
+        msg: "Hello, i am {{NAME}}, {{MESSAGE}}!"
+
+    - name: Show a message again
+      ansible.builtin.debug:
+        msg: "Hello, i am {{NAME}}, {{MESSAGE}}!"
