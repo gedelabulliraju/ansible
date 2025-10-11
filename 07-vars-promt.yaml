@@ -1,4 +1,5 @@
 - name:
+  hosts: web
   vars_prompt:
     - name: "NAME"
       prompt: "Enter your name"
