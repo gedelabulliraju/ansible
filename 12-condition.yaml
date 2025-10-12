@@ -1,6 +1,6 @@
 - name: print condition
   hosts: local
-  connection: local
+  connection: localhos
   vars:
   - name: my_number
     prompt: "Enter the number"
@@ -10,12 +10,12 @@
   # connection: local
     
   tasks:
-    - name: print if number is greater than 10
-      ansible.builtin.debug:
-        msg: "The number is greater than 10"
-      when: my_number | int >= 10
+  - name: print if number is greater than 10
+    ansible.builtin.debug:
+      msg: "The number is greater than 10"
+    when: my_number | int >= 10
 
-    - name: print if number is less than 10
-      ansible.builtin.debug:
-        msg: "The number is less than 10"
-      when: my_number | int < 10
+  - name: print if number is less than 10
+    ansible.builtin.debug:
+      msg: "The number is less than 10"
+    when: my_number | int < 10
