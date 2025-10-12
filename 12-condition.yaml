@@ -1,9 +1,9 @@
 - name: print condition
   hosts: local
-  connection: localhos
+  connection: local
   vars:
   - name: my_number
-    prompt: "Enter the number"
+    prompt: "Enter the my_number"
     private: false
   # vars:
   #   number: 15
