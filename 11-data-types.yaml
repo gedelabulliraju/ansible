@@ -1,0 +1,46 @@
+- name: devops cource information
+  hosts: local
+  connection: local
+  vars:
+    course: "DevOps with aws  and kubernetes"
+    duration: 120 #this is number
+    topics: 
+      - aws
+      - kubernetes
+      - docker
+      - jenkins
+      - ansible
+      - terraform
+      - python
+    live: true #this is boolean
+    tools: # i want to write as dictionary
+        cloud:
+          primary: aws
+          secondary: gcp
+        container:
+          primary: kubernetes
+          secondary: docker
+        ci_cd:
+          primary: jenkins
+          secondary: github actions 
+        config_mgmt:
+          primary: ansible
+          secondary: puppet
+        infrastructure_as_code:
+          primary: terraform
+          secondary: cloudformation
+  tasks:
+    - name: print course information
+      ansible.builtin.debug:
+        msg: |
+          Course name is {{ course }}
+          Duration is {{ duration }} hours
+          Topics covered are {{ topics }}
+          Live sessions available: {{ live }}
+          Tools used:
+            Cloud: Primary - {{ tools.cloud.primary }}, Secondary - {{ tools.cloud.secondary }}
+            Container: Primary - {{ tools.container.primary }}, Secondary - {{ tools.container.secondary }}
+            CI/CD: Primary - {{ tools.ci_cd.primary }}, Secondary - {{ tools.ci_cd.secondary }}
+            Config Management: Primary - {{ tools.config_mgmt.primary }}, Secondary - {{ tools.config_mgmt.secondary }}
+            Infrastructure as Code: Primary - {{ tools.infrastructure_as_code.primary }}, Secondary - {{ tools.infrastructure_as_code.secondary }}
+
