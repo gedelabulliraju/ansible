@@ -1,5 +1,6 @@
 - name: print condition
   hosts: local
+  connection: local
   vars:
     name: "number"
     prompt: "Enter the number"
