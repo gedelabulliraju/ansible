@@ -1,0 +1,19 @@
+- name: install nginx
+  hosts: web
+  become: true
+  tasks:
+    - name: gatharing facts
+      ansible.builtin.debug:
+        msg: "{{ ansible_facts }}"
+    - name: install nginx
+      ansible.builtin.dnf:
+        name: nginx
+        state: present
+        when: ansible_facts['os_family'] == 'RedHat'
+    - name: install nginx
+      ansible.builtin.apt:
+        name: nginx
+        state: present
+        update_cache: yes
+        when: ansible_facts['os_family'] == 'Debian'
+    
