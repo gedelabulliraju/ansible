@@ -2,7 +2,7 @@
   hosts: local
   connection: local
   vars:
-    name: "my_number"
+  - name: my_number
     prompt: "Enter the number"
     private: false
   # vars:
