@@ -2,7 +2,7 @@
   hosts: local
   connection: local
   vars:
-    name: "number"
+    name: "my_number"
     prompt: "Enter the number"
     private: false
   # vars:
@@ -13,9 +13,9 @@
     - name: print if number is greater than 10
       ansible.builtin.debug:
         msg: "The number is greater than 10"
-      when: number | int > 10
+      when: my_number | int > 10
 
     - name: print if number is less than 10
       ansible.builtin.debug:
         msg: "The number is less than 10"
-      when: number |int < 10
+      when: my_number |int < 10
