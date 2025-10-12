@@ -1,0 +1,11 @@
+- name: create user
+  hosts: web
+  become: true
+  tasks:
+    - name: cheak user exit or not
+      ansible.builtin.command: id expense
+      register: USER
+      ignore_errors: true
+    - name: create user if not exit
+      ansible.builtin.command: useradd expense
+      when: USER.rc != 0
