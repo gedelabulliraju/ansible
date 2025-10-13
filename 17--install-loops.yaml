@@ -4,11 +4,11 @@
   tasks:
     - name: install loops
       ansible.builtin.package:
-        name: "{{ item }}"
-        state: present
+        name: "{{ item.name }}"
+        state: "{{ item.state }}"
       loop:
-        - git
-        - nginx
-        - httpd
-        - postfix
-        - mysql
+        - { name: 'git', state: 'present' }
+        - { name: nginx, state: absent }
+        - { name: 'httpd', state: 'absent' }
+        - { name: 'postfix', state: 'absent' }
+        - { name: 'mysql', state: 'absent' }
