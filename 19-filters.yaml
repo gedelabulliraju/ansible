@@ -42,6 +42,7 @@
           city: "New York"
       ansible.builtin.debug:
         msg: "Map to list: {{ my_map | dict2items }}"
+
     - name: convert list to map
       vars: 
         my_list:
@@ -53,3 +54,9 @@
             value: "New York"
       ansible.builtin.debug:
         msg: "List to map: {{ my_list | items2dict }}"
+
+    - name: check ip address is valid or not
+      vars:
+        ip_address: "192.162.16.256"
+      ansible.builtin.debug:
+        msg: "Is the IP address valid? {{ ip_address | ansible.utils.ipaddr }}"
