@@ -28,3 +28,9 @@
           - "banana"
       ansible.builtin.debug:
         msg: "Unique fruits: {{ my_list | unique }}"
+
+    - name: get output of a given number minimum and maximum
+      vars:
+        numbers: [5, 3, 9, 1, 7, 45, 23, 99, 0]
+      ansible.builtin.debug:
+        msg: {{ Minimum number: {{ numbers | min }}, Maximum number: {{ numbers | max }} }}
