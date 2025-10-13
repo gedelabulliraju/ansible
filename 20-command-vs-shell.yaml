@@ -1,0 +1,11 @@
+- name: command vs shell
+  hosts: local
+  connection: local
+  tasks:
+    - name: using command
+      ansible.builtin.shell: ls -ltr > /tmp/command_output.txt #ansible.builtin.command is not able to redirect output
+      register: command_result
+
+    - name: check the output of command
+      ansible.builtin.shell: ps -ef | grep ssh # ansible.builtin.command is not able to use pipe
+      register: ps_output
