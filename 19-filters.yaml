@@ -17,3 +17,14 @@
         greating: "Hello World"
       ansible.builtin.debug:
         msg: "Hello! {{ greating | lower }}"
+
+    - name: print unique values from a list
+      vars:
+        my_list:
+          - "apple"
+          - "banana"
+          - "apple"
+          - "orange"
+          - "banana"
+      ansible.builtin.debug:
+        msg: "Unique fruits: {{ my_list | unique }}"
