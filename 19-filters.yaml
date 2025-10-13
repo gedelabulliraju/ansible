@@ -34,3 +34,22 @@
         numbers: [5, 3, 9, 1, 7, 45, 23, 99, 0]
       ansible.builtin.debug:
         msg: "Minimum number: {{ numbers | min }}, Maximum number: {{ numbers | max }}"
+    - name: convert map to list
+      vars:
+        my_map:
+          name: "John"
+          age: 30
+          city: "New York"
+      ansible.builtin.debug:
+        msg: "Map to list: {{ my_map | dict2items }}"
+    - name: convert list to map
+      vars: 
+        my_list:
+          - key: "name"
+            value: "John"
+          - key: "age"
+            value: 30
+          - key: "city"
+            value: "New York"
+      ansible.builtin.debug:
+        msg: "List to map: {{ my_list | items2dict }}"
