@@ -1,4 +1,5 @@
-- name: install nginx
+
+- name: install nginx on redhat and start service
   hosts: web
   become: yes
   tasks:
