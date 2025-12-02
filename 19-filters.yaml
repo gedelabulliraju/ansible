@@ -4,13 +4,13 @@
   tasks:
     - name: print default variable
       ansible.builtin.debug:
-        msg: "Hello! {{ course | default('Ansible') }}"
+        msg: "Hello! {{ course | default('Ansible') }}" # Hello andible ani print avutundi
 
     - name: print given value in uppercase
       vars:
         greating: "Hello World"
       ansible.builtin.debug:
-        msg: "Hello! {{ greating | upper }}"
+        msg: "Hello! {{ greating | upper }}" 
 
     - name: print given value in lowercase
       vars:
@@ -41,7 +41,7 @@
           age: 30
           city: "New York"
       ansible.builtin.debug:
-        msg: "Map to list: {{ my_map | dict2items }}"
+        msg: "Map to list: {{ my_map | dict2items }}" # where dict2items con
 
     - name: convert list to map
       vars: 
@@ -53,7 +53,7 @@
           - key: "city"
             value: "New York"
       ansible.builtin.debug:
-        msg: "List to map: {{ my_list | items2dict }}"
+        msg: "List to map: {{ my_list | items2dict }}" 
 
     - name: check ip address is valid or not
       vars:

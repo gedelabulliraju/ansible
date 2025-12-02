@@ -1,0 +1,31 @@
+- name: create ec2-instances and route 53 records
+  hosts: localhost
+  vars:
+    instances:
+      -
+  tasks:
+    - name: Create EC2 instances
+      ec2_instance:
+        name: "{{ item.name }}"
+        image: "{{ item.image }}"
+        instance_type: "{{ item.instance_type }}"
+        region: "{{ item.region }}"
+        key_name: "{{ item.key_name }}"
+        security_groups: "{{ item.security_groups }}"
+        count: "{{ item.count }}"
+      loop:
+        - { name: 'web-server-1', image: 'ami-12345678', instance_type: 't2.micro', region: 'us-west-2', key_name: 'my-key', security_groups: ['web-sg'], count: 1 }
+        - { name: 'web-server-2', image: 'ami-12345678', instance_type: 't2.micro', region: 'us-west-2', key_name: 'my-key', security_groups: ['web-sg'], count: 1 }
+
+    - name: Create Route 53 records
+      route53:
+        zone: "example.com"
+        record:
+          - name: "web-server-1.example.com"
+            type: "A"
+            value: "{{ item.public_ip }}"
+          - name: "web-server-2.example.com"
+            type: "A"
+            value: "{{ item.public_ip }}"
+      loop:
+        - { public_ip: '{{ hostvars[item].public_ip }}' for item in ansible_play_hosts if hostvars[item].ansible_ec2_instance_id is defined }
