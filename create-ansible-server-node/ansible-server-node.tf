@@ -13,6 +13,14 @@ resource "aws_security_group" "ansible_server_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+  # Allow http from anywhere
+  ingress {
+    from_port = 80
+    to_port   = 80
+    protocol  = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
   # Allow all outbound (required for dnf install)
   egress {
     from_port   = 0
@@ -30,11 +38,11 @@ resource "aws_instance" "ansible_server" {
   instance_type          = "t3.micro"
   vpc_security_group_ids = [aws_security_group.ansible_server_sg.id]
 
+
   tags = {
     Name = "Ansible-Server"
   }
 
-  
 }
 
 ###############################################
