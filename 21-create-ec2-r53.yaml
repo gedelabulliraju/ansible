@@ -39,7 +39,7 @@
         instance_type: "{{ instance_type }}"
         image_id: "{{ ami_id }}"
         subnet_id: "{{ subnet_id }}"
-        security_group_ids:
+        security_groups:
           - "{{ security_group_id }}"
         wait: yes
         tags:
