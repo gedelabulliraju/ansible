@@ -19,3 +19,7 @@
         security_group: "{{ sg_id }}"
       loop: "{{ instances }}"
       register: ec2_instances
+
+    - name: Print the output of launched instances
+      debug:
+        var: ec2_instances.results
