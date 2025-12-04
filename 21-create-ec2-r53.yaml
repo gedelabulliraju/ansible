@@ -1,70 +1,23 @@
----
-- name: Create 3 EC2 Instances and Route53 DNS Records
-  hosts: localhost
+- name: create three ec2 instances and r53 records for frontend, backend and mysql
+  hosts: local
   connection: local
-  gather_facts: no
-
   vars:
-    instance_type: "t3.micro"
-    ami_id: "ami-09c813fb71547fc4f"   
-    subnet_id: "subnet-03f5d20441ab8be68"
-    zone_name: "buddymarket.shop"
-    security_group_id: "sg-074acfbaac90a04bc"    # CHANGE: optional, but recommended
-
-    ec2_instances:
-      - name: "frontend"
-        dns_record: "buddymarket.shop"
-      - name: "backend"
-        dns_record: "backend.buddymarket.shop"
-      - name: "mysql"
-        dns_record: "mysql.buddymarket.shop"
-
+    subnet_id: subnet-03f5d20441ab8be68
+    security_group_id: "sg-074acfbaac90a04bc"
+    ami_id: "ami-09c813fb71547fc4f"
+    instances:
+      - mysql
+      - backend
+      - frontend
   tasks:
-
-    #####################################################################
-    # Install AWS Python Libraries on RedHat Linux (boto3, botocore)
-    #####################################################################
-    - name: Install boto3 and botocore on RHEL
-      ansible.builtin.shell: |
-        pip3 install boto3 botocore --user
-      args:
-        executable: /bin/bash
-
-    #####################################################################
-    # Launch EC2 Instances
-    #####################################################################
-    - name: Launch EC2 instance for each component
+    - name: Launch EC2 instances
       amazon.aws.ec2_instance:
-        name: "{{ item.name }}"
-        instance_type: "{{ instance_type }}"
+        name: "{{ item }}"
+        instance_type: t3.micro
         image_id: "{{ ami_id }}"
         subnet_id: "{{ subnet_id }}"
-        security_groups:
-          - "{{ security_group_id }}"
-        wait: yes
-        tags:
-          Name: "{{ item.name }}"
-      loop: "{{ ec2_instances }}"
-      register: created_instances
-
-    - name: Show all created instance details
-      debug:
-        var: created_instances
-
-    #####################################################################
-    # Create Route53 Records
-    #####################################################################
-    - name: Create Route53 DNS records for each EC2 instance
-      amazon.aws.route53:
-        state: present
-        zone: "{{ zone_name }}"
-        record: "{{ item.item.dns_record }}"
-        type: A
-        ttl: 300
-        value: "{{ item.instances[0].public_ip_address }}"
-      loop: "{{ created_instances.results }}"
-      register: dns_records
-
-    - name: Show DNS record creation output
-      debug:
-        var: dns_records
+        security_group: "{{ security_group_id }}"
+        instance_tags:
+          Name: "{{ item }}"
+      loop: "{{ instances }}"
+      register: ec2_instances
