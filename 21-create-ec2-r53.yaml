@@ -30,7 +30,6 @@
         state: present
         zone: "{{ zone }}"
         record: "{{ item.name }}.{{ zone }}"
-        when: item.item.name == 'frontend' >> record == "{{ zone }}"
         type: A
         ttl: 2
         value: "{{ item.ip }}"
