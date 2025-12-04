@@ -9,6 +9,7 @@
       - mysql
       - backend
       - frontend
+    zone: buddymarket.shop
   tasks:
     - name: Launch EC2 instances
       amazon.aws.ec2_instance:
@@ -23,3 +24,20 @@
     - name: Print the output of launched instances
       debug:
         var: ec2_instances.results
+
+    - name: Create Route 53 records for frontend with public ip and with record with zone name only, backend with private ip and mysql with private ip
+      amazon.aws.route53:
+        state: present
+        zone: "{{ zone }}"
+        record: "{{ item.name }}.{{ zone }}"
+        when: item.item.name == 'frontend' >> record == "{{ zone }}"
+        type: A
+        ttl: 2
+        value: "{{ item.ip }}"
+      loop: 
+        - name: frontend
+          ip: "{{ ec2_instances.results[2].instance.public_ip_address }}"
+        - name: backend
+          ip: "{{ ec2_instances.results[1].instance.private_ip_address }}"
+        - name: mysql
+          ip: "{{ ec2_instances.results[0].instance.private_ip_address }}"
