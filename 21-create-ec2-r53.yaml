@@ -1,9 +1,9 @@
 - name: create three ec2 instances and r53 records for frontend, backend and mysql
   hosts: local
-  connection: local
+  connection: local 
   vars:
     subnet_id: subnet-03f5d20441ab8be68
-    security_group_id: "sg-074acfbaac90a04bc"
+    sg_id: "sg-074acfbaac90a04bc"
     ami_id: "ami-09c813fb71547fc4f"
     instances:
       - mysql
@@ -13,11 +13,9 @@
     - name: Launch EC2 instances
       amazon.aws.ec2_instance:
         name: "{{ item }}"
-        instance_type: t3.micro
+        instance_type: "t3.micro"
         image_id: "{{ ami_id }}"
-        subnet_id: "{{ subnet_id }}"
-        security_group: "{{ security_group_id }}"
-        instance_tags:
-          Name: "{{ item }}"
+        vpc_subnet_id: "{{ subnet_id }}"
+        security_group: "{{ sg_id }}"
       loop: "{{ instances }}"
       register: ec2_instances
