@@ -33,7 +33,7 @@
         type: A
         ttl: 2
         value: "{{ item.ip }}"
-      loop: 
+      loop:
         - name: frontend
           ip: "{{ ec2_instances.results[2].instance.public_ip_address }}"
         - name: backend
