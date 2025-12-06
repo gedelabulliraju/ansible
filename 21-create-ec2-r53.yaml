@@ -42,7 +42,6 @@
         overwrite: yes
         wait: true
       loop: "{{ ec2_instances.results }}"
-      when: item.item != 'frontend'
   
     - name: Create Route 53 record for frontend with public ip with zone name only
       amazon.aws.route53:
