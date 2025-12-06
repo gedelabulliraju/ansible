@@ -25,18 +25,24 @@
       debug:
         var: ec2_instances.results
 
-    - name: Create Route 53 records for frontend with public ip and with record with zone name only, backend with private ip and mysql with private ip
+    - name: Create Route 53 records for backend with private ip and mysql with private ip
       amazon.aws.route53:
         state: present
         zone: "{{ zone }}"
-        record: "{{ item.name }}.{{ zone }}"
+        record: "{{ item.item }}.{{ zone }}"
         type: A
-        ttl: 2
-        value: "{{ item.ip }}"
-      loop:
-        - name: frontend
-          ip: "{{ ec2_instances.results[2].instance.public_ip_address }}"
-        - name: backend
-          ip: "{{ ec2_instances.results[1].instance.private_ip_address }}"
-        - name: mysql
-          ip: "{{ ec2_instances.results[0].instance.private_ip_address }}"
+        ttl: 1
+        value: "{{ item.instance[0].private_ip_address }}"
+      loop: "{{ ec2_instances.results }}"
+      when: item.item != 'frontend'
+  
+    - name: Create Route 53 record for frontend with public ip with zone name only
+      amazon.aws.route53:
+        state: present
+        zone: "{{ zone }}"
+        record: "{{ zone }}"
+        type: A
+        ttl: 1
+        value: "{{ item.instance[0].public_ip_address }}"
+      loop: "{{ ec2_instances.results }}"
+      when: item.item == 'frontend'
