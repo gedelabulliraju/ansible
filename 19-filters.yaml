@@ -10,13 +10,13 @@
       vars:
         greating: "Hello World"
       ansible.builtin.debug:
-        msg: "Hello! {{ greating | upper }}" 
+        msg: "Hello! {{ greeting | upper }}" 
 
     - name: print given value in lowercase
       vars:
         greating: "Hello World"
       ansible.builtin.debug:
-        msg: "Hello! {{ greating | lower }}"
+        msg: "Hello! {{ greeting | lower }}"
 
     - name: print unique values from a list
       vars:
